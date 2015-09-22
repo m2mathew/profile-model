@@ -4,6 +4,7 @@
 $(document).ready(function () {
 
 	var url = "http://tiyfe.herokuapp.com/collections/mike_m_profile-model";
+
 	displayUserInfo();
 
 	var user = new UserModel();
@@ -36,8 +37,14 @@ $(document).ready(function () {
 		var userName = $('#name').val();
 		var userEmail = $('#inputEmail3').val();
 		var userRole = $('#role').val();
+		var userPassword = $('#inputPassword3').val();
 
-		user.set({ name: userName, email: userEmail, role: userRole });
+		user.set({
+			name: userName,
+			email: userEmail,
+			role: userRole,
+			password: userPassword
+		});
 	});
 
 	// listen for change on the page
@@ -60,16 +67,17 @@ $(document).ready(function () {
 	// change user information
 	function changeUserInfo() {
 		$.post(url, {
-			user: user.get('name'),
+			name: user.get('name'),
 			email: user.get('email'),
-			role: user.get('role')
+			role: user.get('role'),
+			password: user.get('password')
 		}, function (response) {
-			$('.profile-usertitle-name').text(response[0].name);
-			$('.profile-usertitle-job').text(response[0].role);
-			$('.navbar-right .dropdown .dropdown-toggle').text(response[0].name);
-			$('#name').val(response[0].name);
-			$('#inputEmail3').val(response[0].email);
-			$('#role').val(response[0].role);
+			$('.profile-usertitle-name').text(response.name);
+			$('.profile-usertitle-job').text(response.role);
+			$('.navbar-right .dropdown .dropdown-toggle').text(response.name);
+			$('#name').val(response.name);
+			$('#inputEmail3').val(response.email);
+			$('#role').val(response.role);
 		}, 'json');
 	};
 });
