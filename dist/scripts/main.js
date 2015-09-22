@@ -2,6 +2,11 @@
 
 $(document).ready(function() {
 
+
+
+	var url = "http://tiyfe.herokuapp.com/collections/mike_m_profile-model";
+	displayUserInfo();
+
 	var user = new UserModel();
 	var App = Backbone.Router.extend({
 		routes: {
@@ -25,6 +30,7 @@ $(document).ready(function() {
 	var app = new App();
 	Backbone.history.start();
 
+	// save button function
 	$('.form-horizontal').on('submit', function(e) {
 		e.preventDefault();
 
@@ -35,16 +41,43 @@ $(document).ready(function() {
 		user.set( {name: userName, email: userEmail, role: userRole } );
 	});
 
+	// listen for change on the page
 	user.on('change', function () {
-
-		var userName = $('#name').val();
-		var userEmail = $('#inputEmail3').val();
-		var userRole = $('#role').val();
-
-		$('.profile-usertitle-name').text(userName);
-		$('.profile-usertitle-job').text(userRole);
-		$('.navbar-right .dropdown .dropdown-toggle').html(userName + ' <span class="caret"></span>');
+		changeUserInfo();
 	});
 
+	// display user information
+    function displayUserInfo() {
+        $.get(
+            url,
+            function(response){
+                $('.profile-usertitle-name').text(response[0].name);
+				$('.profile-usertitle-job').text(response[0].role);
+				$('.navbar-right .dropdown .dropdown-toggle').text(response[0].name);
+				$('#name').val(response[0].name);
+				$('#inputEmail3').val(response[0].email);
+				$('#role').val(response[0].role);
+            },
+            'json'
+    )};
 
+    // change user information
+    function changeUserInfo() {
+    	$.post(
+    		url,
+    		{
+    			user: user.get('name'),
+    			email: user.get('email'),
+    			role: user.get('role')
+    		},
+    		function(response) {
+    			$('.profile-usertitle-name').text(response[0].name);
+				$('.profile-usertitle-job').text(response[0].role);
+				$('.navbar-right .dropdown .dropdown-toggle').text(response[0].name);
+				$('#name').val(response[0].name);
+				$('#inputEmail3').val(response[0].email);
+				$('#role').val(response[0].role);
+    		},
+    		'json'
+    )};
 });
