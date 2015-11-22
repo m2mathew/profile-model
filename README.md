@@ -1,5 +1,9 @@
 # GitHub Profile
 
+Assignment from The Iron Yard-Austin
+
+Week 5 - day 18
+
 ## Description
 Mimic the behavior of a GitHub-like profile page. When the user profile information is changed, the change should be reflected in the UI.
 
@@ -20,7 +24,6 @@ After completing this assignment, you be able to effectively use
 
 * Backbone.Model.extend
 * Model get and set methods (getters and setters)
-
 
 
 ## Details

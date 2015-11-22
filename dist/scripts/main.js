@@ -7,6 +7,7 @@ $(document).ready(function() {
 	displayUserInfo();
 
 	var user = new UserModel();
+
 	var App = Backbone.Router.extend({
 		routes: {
 			'': 'profile',

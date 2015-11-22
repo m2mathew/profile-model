@@ -7,7 +7,3 @@ var UserModel = Backbone.Model.extend({
 		role: 'Developer'
 	}
 });
-
-// modules.exports = Backbone.Model.extend( {
-//      model: UserModel
-// });
